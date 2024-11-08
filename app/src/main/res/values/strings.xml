@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChatApp</string>
+    <string name="profile">Профиль</string>
+    <string name="chat">Чат</string>
+    <string name="auth">Авторизация</string>
+    <string name="confirm_otp">Код подтверждения</string>
 </resources>
