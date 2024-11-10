@@ -1,5 +1,6 @@
 package com.example.data.remote.intercepter
 
+import android.util.Log
 import com.example.core.Constants
 import com.example.data.remote.model.response.refresh_token.RefreshTokenResponse
 import com.example.domain.repository.TokenRepository
@@ -23,13 +24,22 @@ class AuthInterceptor(
         var request = chain.request()
 
         val accessToken = runBlocking { tokenRepository.getAccessToken().first() }
-        val refreshToken = runBlocking { tokenRepository.getAccessToken().first() }
+        val refreshToken = runBlocking { tokenRepository.getRefreshToken().first() }
         request = request.newBuilder()
-            .addHeader("Authorization", "Bearer $accessToken")
+//            .addHeader("Authorization", "Bearer $accessToken")
+            .addHeader(
+                "accept",
+                "application/json"
+            )
+            .addHeader(
+                "Content-Type",
+                "application/json"
+            )
             .build()
 
         val response = chain.proceed(request)
 
+        Log.e("TAG", "intercept: ", )
         if (response.code == 401) {
             response.close()
             synchronized(this) {
@@ -61,6 +71,14 @@ class AuthInterceptor(
                         "Authorization",
                         "Bearer ${tokenRepository.getAccessToken()}"
                     )
+                    .addHeader(
+                        "accept",
+                        "application/json"
+                    )
+                    .addHeader(
+                        "Content-Type",
+                        "application/json"
+                    )
                     .build()
 
                 return chain.proceed(newRequest)
@@ -85,11 +103,21 @@ class AuthInterceptor(
 
         val request = Request.Builder()
             .url("${Constants.BASE_URL}api/v1/users/refresh-token/")
+            .addHeader(
+                "accept",
+                "application/json"
+            )
+            .addHeader(
+                "Content-Type",
+                "application/json"
+            )
             .post(requestBody)
             .build()
 
         return try {
             client.newCall(request).execute().use { response ->
+                Log.e("TAG", "refreshAccessToken: current ${response.toString()}", )
+                Log.e("TAG", "refreshAccessToken: ${response.body.toString()}", )
                 if (response.isSuccessful) {
                     val responseData = response.body?.string()
                     Gson().fromJson(responseData, RefreshTokenResponse::class.java)

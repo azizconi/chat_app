@@ -4,4 +4,13 @@
     <string name="chat">Чат</string>
     <string name="auth">Авторизация</string>
     <string name="confirm_otp">Код подтверждения</string>
+    <string name="register">Регистрация</string>
+    <string name="phone">Номер телефона</string>
+    <string name="username">Имя пользователя</string>
+    <string name="zodiac_sign">Знак зодиака</string>
+    <string name="about_myself">О себе</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="city">Город</string>
+    <string name="birthday">День рождения</string>
+    <string name="chats">Чаты</string>
 </resources>

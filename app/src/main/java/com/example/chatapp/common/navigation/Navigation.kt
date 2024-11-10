@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.chatapp.common.navigation.nav_graphs.authGraph
 import com.example.chatapp.common.navigation.nav_graphs.chatGraph
+import com.example.chatapp.common.navigation.nav_graphs.profileGraph
 import com.example.chatapp.common.viewModels.MainViewModel
 import com.example.chatapp.presentation.auth.AuthScreen
 import com.example.core.NavigationGraph
@@ -34,7 +35,7 @@ fun Navigation(
 
 
         chatGraph(navController = navController)
-//        profileGraph()
+        profileGraph(navController = navController)
         authGraph(navController = navController)
 
         navigation<NavigationGraph.EmptyGraph>(startDestination = Screen.EmptyScreen) {

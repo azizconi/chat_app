@@ -14,9 +14,6 @@ class TokenRepositoryImpl(
     override fun getAccessToken(): Flow<String?> =
         dataStoreRepository.getString(PreferenceKeys.ACCESS_TOKEN)
 
-    override fun getUserId(): Flow<String?> =
-        dataStoreRepository.getString(PreferenceKeys.USER_ID)
-
 
     override suspend fun updateRefreshToken(token: String?) {
         dataStoreRepository.save(PreferenceKeys.REFRESH_TOKEN, token)
@@ -24,10 +21,6 @@ class TokenRepositoryImpl(
 
     override suspend fun updateAccessToken(token: String?) {
         dataStoreRepository.save(PreferenceKeys.ACCESS_TOKEN, token)
-    }
-
-    override suspend fun updateUserId(userId: String?) {
-        dataStoreRepository.save(PreferenceKeys.USER_ID, userId)
     }
 
     override suspend fun clear() {

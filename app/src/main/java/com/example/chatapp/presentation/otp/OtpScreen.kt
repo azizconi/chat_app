@@ -97,7 +97,7 @@ fun OtpScreen(
                 title = {
                     Text(text = stringResource(id = R.string.confirm_otp))
                 },
-                actions = {
+                navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                     }

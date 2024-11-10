@@ -20,7 +20,6 @@ class RegisterUseCase(
 
                     tokenRepository.updateAccessToken(accessToken)
                     tokenRepository.updateRefreshToken(refreshToken)
-                    tokenRepository.updateUserId(userId)
                 }
             }
         }

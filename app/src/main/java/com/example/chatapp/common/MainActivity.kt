@@ -31,6 +31,10 @@ import com.example.chatapp.R
 import com.example.chatapp.common.models.BottomNavItem
 import com.example.chatapp.common.navigation.Navigation
 import com.example.chatapp.common.theme.ChatAppTheme
+import com.example.chatapp.common.theme.Pink40
+import com.example.chatapp.common.theme.Purple80
+import com.example.chatapp.common.theme.PurpleGrey40
+import com.example.chatapp.common.theme.PurpleGrey80
 import com.example.core.NavigationGraph
 import com.example.core.Screen
 import kotlin.reflect.KClass
@@ -92,7 +96,7 @@ private fun AppBottomBar(
 
     if (showBottomBar) {
         NavigationBar(
-            containerColor = Color.Unspecified.copy(.05f),
+            containerColor = Purple80,
             tonalElevation = NavigationBarDefaults.Elevation
         ) {
             routes.forEach {
@@ -130,7 +134,9 @@ private fun NavBackStackEntry.isCurrentGraph(route: Any): Boolean {
 private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
     val isShowBottomNav = backStackEntry?.destination?.parent?.hierarchy?.any {
         it.hasRoute(NavigationGraph.AuthGraph::class)
-    } == false
+    } == false && !backStackEntry.destination.hierarchy.any {
+        it.hasRoute(Screen.EditProfileScreen::class) || it.hasRoute(Screen.ChatScreen::class)
+    }
 
     return isShowBottomNav
 }

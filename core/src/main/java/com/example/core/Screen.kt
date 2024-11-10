@@ -8,7 +8,7 @@ sealed class Screen {
     data object ChatsScreen : Screen()
 
     @Serializable
-    data object ChatScreen : Screen()
+    data class ChatScreen(val chatId: Int) : Screen()
 
     @Serializable
     data object ProfileScreen : Screen()

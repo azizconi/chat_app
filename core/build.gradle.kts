@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
     kotlin("plugin.serialization") version "2.0.20"
 }
 
@@ -46,10 +45,7 @@ dependencies {
 
 
     // room
-    val room_version = "2.6.1"
-    api("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    api("androidx.room:room-ktx:$room_version")
+
 
     // Retrofit
     api("com.squareup.retrofit2:retrofit:2.9.0")

@@ -1,5 +1,6 @@
 package com.example.domain.use_case
 
+import android.util.Log
 import com.example.core.Resource
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.TokenRepository
@@ -16,11 +17,11 @@ class CheckAuthCodeUseCase(
                 resource.data.let { interactor ->
                     val accessToken = interactor.access_token
                     val refreshToken = interactor.refresh_token
-                    val userId = interactor.refresh_token
+
+                    Log.e("TAG", "invoke: $interactor", )
 
                     tokenRepository.updateAccessToken(accessToken)
                     tokenRepository.updateRefreshToken(refreshToken)
-                    tokenRepository.updateUserId(userId)
                 }
             }
         }

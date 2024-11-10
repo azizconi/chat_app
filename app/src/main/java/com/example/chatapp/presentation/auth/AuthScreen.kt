@@ -70,7 +70,7 @@ fun AuthScreen(
 
             is Resource.Success -> {
                 if ((sendAuthCodeResult as Resource.Success).data.isSuccess) {
-                    navController.navigate(Screen.OtpScreen(phone))
+                    navController.navigate(Screen.OtpScreen(code + phone))
                 }
                 viewModel.resetSendAuthCodeResult()
             }

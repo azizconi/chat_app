@@ -6,13 +6,23 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import com.example.data.local.dao.ProfileDao
+import com.example.data.local.entities.profile.ProfileEntity
+import com.example.data.local.type_converter.ProfileAvatarsTypeConverter
 
 @Database(
-    version = 1,
+    version = 3,
     exportSchema = false,
-    entities = [ExampleTable::class]
+    entities = [ProfileEntity::class]
+)
+@TypeConverters(
+    ProfileAvatarsTypeConverter::class
 )
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun profileDao(): ProfileDao
 
     companion object {
         @Volatile
@@ -27,6 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
                         "chat_app_database"
                     ).fallbackToDestructiveMigration()
                         .build()
+                    INSTANCE = instance
                 }
                 return instance
             }
@@ -35,7 +46,3 @@ abstract class AppDatabase : RoomDatabase() {
     }
 
 }
-
-
-@Entity(tableName = "table")
-data class ExampleTable(@PrimaryKey(autoGenerate = true) val id: Int)

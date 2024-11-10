@@ -80,4 +80,9 @@ dependencies {
     implementation(project(":di"))
     implementation(project(":data"))
 
+    //Coil
+    val coil = "2.2.2"
+    implementation("io.coil-kt:coil:$coil")
+    implementation("io.coil-kt:coil-compose:$coil")
+    implementation("com.google.accompanist:accompanist-coil:0.13.0")
 }

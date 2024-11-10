@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -46,4 +47,11 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":domain"))
+
+    val room_version = "2.6.1"
+
+    api("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+
 }
