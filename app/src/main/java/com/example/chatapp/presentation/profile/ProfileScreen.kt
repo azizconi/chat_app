@@ -12,8 +12,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,6 +25,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.pullToRefresh
@@ -62,6 +67,8 @@ fun ProfileScreen(
 
     val profile by viewModel.profileResult
 
+    val isLogoutDialogShow = remember { mutableStateOf(false) }
+
     LaunchedEffect(profile) {
         isRefreshing = profile is Resource.Loading
         when (profile) {
@@ -85,6 +92,15 @@ fun ProfileScreen(
                             Icon(Icons.Default.Edit, contentDescription = null)
                         }
                     }
+                    IconButton(
+                        onClick = {
+                            isLogoutDialogShow.value = true
+                        }
+                    ) {
+                        Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null)
+                    }
+
+
                 }
             )
 
@@ -105,7 +121,10 @@ fun ProfileScreen(
                     is Resource.Error -> {}
                     Resource.Idle -> {}
                     Resource.Loading -> {
-                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
                             CircularProgressIndicator()
                         }
                     }
@@ -123,6 +142,7 @@ fun ProfileScreen(
                             val avatar = profileData.avatars?.avatar
                             val phone = profileData.phone
                             val username = profileData.username
+                            val city = profileData.city ?: "Не указано"
                             val birthday = profileData.birthday
                             val about = profileData.status ?: "Не указано"
 
@@ -149,6 +169,11 @@ fun ProfileScreen(
                                     text = username
                                 )
                                 VerticalSpacer()
+                                UserInfoItem(
+                                    title = stringResource(id = R.string.city),
+                                    text = city
+                                )
+                                VerticalSpacer()
 
                                 UserInfoItem(
                                     title = stringResource(id = R.string.zodiac_sign),
@@ -173,6 +198,25 @@ fun ProfileScreen(
 
             }
         }
+    }
+
+    if (isLogoutDialogShow.value) {
+            AlertDialog(
+                onDismissRequest = { isLogoutDialogShow.value = false },
+                title = { Text(text = "Выйти") },
+                text = { Text("Вы действительно хотите выйти?") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        isLogoutDialogShow.value = true
+                        viewModel.logout()
+                    }) { Text("Да") }
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        isLogoutDialogShow.value = false
+                    }) { Text("Нет") }
+                }
+            )
     }
 
 

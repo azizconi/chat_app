@@ -9,4 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface ProfileRepository {
     fun getProfile(token: String, isLocalRequest: Boolean): Flow<Resource<ProfileInteractor>>
     fun editProfile(token: String, interactor: SendEditProfileInteractor): Flow<Resource<ProfileInteractor>>
+    suspend fun clearLocalProfile()
 }

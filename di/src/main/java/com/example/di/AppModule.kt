@@ -23,6 +23,7 @@ import com.example.domain.use_case.GetAccessTokenUseCase
 import com.example.domain.use_case.GetChatUseCase
 import com.example.domain.use_case.GetChatsUseCase
 import com.example.domain.use_case.GetProfileUseCase
+import com.example.domain.use_case.LogoutUseCase
 import com.example.domain.use_case.RegisterUseCase
 import com.example.domain.use_case.SendAuthCodeUseCase
 import okhttp3.OkHttpClient
@@ -63,6 +64,7 @@ object AppModule {
         single { RegisterUseCase(get(), get()) }
         single { GetProfileUseCase(get(), get()) }
         single { EditProfileUseCase(get(), get()) }
+        single { LogoutUseCase(get(), get()) }
         single { GetChatsUseCase(get()) }
         single { GetChatUseCase(get()) }
     }

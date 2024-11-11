@@ -93,4 +93,8 @@ class ProfileRepositoryImpl(
 
 
     }
+
+    override suspend fun clearLocalProfile() {
+        dao.clear()
+    }
 }

@@ -18,7 +18,7 @@ val viewModelsModule: Module = module {
     viewModel { AuthScreenViewModel(get()) }
     viewModel { OtpScreenViewModel(get()) }
     viewModel { RegisterScreenViewModel(get()) }
-    viewModel { ProfileViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get(), get(), get()) }
     viewModel { ChatsScreenViewModel(get()) }
     viewModel { ChatScreenViewModel(get()) }
 }
